@@ -7,12 +7,24 @@
     <link rel="stylesheet" href="theme.css" />
   </head>
   <body>
-    <div class="container pt-5" id="app">
+    <div class="container " id="app">
       <div class="card center">
-        <h1>{{ title }}: {{ counter }}</h1>
-        <div>
-          <button class="btn primary" v-on:click="counter++">Add</button>
-          <button class="btn danger" v-on:click="counter--">Sub</button>
+        <h1>{{ title }}</h1>
+        <div class="form-control center">
+          <input type="text"
+                 :placeholder="placeholderString"
+                 :value="inputValue"
+                 @input="inputChanger"
+                 @keypress.enter="addNewNote" />
+          <button class="btn" style="margin-top: 5px" v-on:click="addNewNote">Add</button>
+          <hr />
+<!--          <h2>inputValue: {{inputValue}}</h2>-->
+          <ul class="list" v-if="notes.length !== 0">
+            <li class="list-item" v-for="(note, index) in notes">{{index + 1}}. {{note}}
+              <button class="btn danger" v-on:click="removeNote(index)">Del</button>
+            </li>
+          </ul>
+          <div v-else> Add new notes </div>
         </div>
       </div>
     </div>
@@ -21,3 +33,5 @@
     <script src="app.js"></script>
   </body>
 </html>
+
+
