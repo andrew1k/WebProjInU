@@ -18,17 +18,27 @@ const App = {
   methods: {
     prev() {
       // когда нажимаем кнопку назад
+      if (this.activeIndex !== 0) {
+        this.activeIndex--
+      }
     },
     reset() {
       // начать заного
+      this.activeIndex = 0
+      this.isActive = true
     },
     nextOrFinish() {
       // кнопка вперед или закончить
-      activeIndex++
+      if (this.activeIndex !== this.steps.length - 1) {
+      this.activeIndex++
+      } else {
+        this.activeIndex = false
+      }
 
     },
     setActive(idx) {
       // когда нажимаем на определенный шаг
+      this.activeIndex = idx
     }
   },
   computed: {
@@ -36,6 +46,15 @@ const App = {
     // 1. текущий выбранный шаг
     // 2. выключена ли кнопка назад
     // 3. находимся ли мы на последнем шаге
+    activeStep() {
+      return this.steps[this.activeIndex]
+    },
+    prevDisabled() {
+      return this.activeIndex === 0
+    },
+    isLastStep() {
+      return this.activeIndex === this.steps.length - 1
+    }
   }
 }
 
